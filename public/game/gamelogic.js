@@ -3,17 +3,161 @@
 //sprite animation speed
 var spriteSpeed = 0.3;
 
+//sound off or not
+var soundOn = true;
+
 function initMainGame(){
 	//check sound plugin
 	checkSoundPlugin();
 
-	getCanvas();
-	startGame();
+	titleGame();
+}
+
+//enter titleGame
+function titleGame(){
+	playBGMForestSound();
+
+	stage.enableMouseOver(60);
+
+	createjs.Touch.enable(stage);
+
+	//init main game container
+	var titleCont = new createjs.Container();
+	titleCont.x=0;
+	stage.addChild(titleCont);
+
+	var bg = new createjs.Shape();
+	bg.graphics.beginLinearGradientFill(["#2468bd","#d2ebff"], [0, 1], 0, 0, 0, canvasHeight/2).drawRect(0,0,canvasWidth,canvasHeight);
+	titleCont.addChild(bg);
+
+	//Title Card
+	var titleCard = "THE LOST PANDA";
+	var titleText = new createjs.Text(titleCard, "80px Helvetica", "#FFFFFF");
+	titleText.textAlign = "center";
+	titleText.x = canvasWidth/2;
+	titleText.y = canvasHeight*(30/100);
+	titleText.textBaseline = "alphabetic";
+	titleCont.addChild(titleText);
+
+	//subtitle card
+	var subtitle = "Don't question why. Just play it.";
+	var subtitleText = new createjs.Text(subtitle, "30px Helvetica", "#FFFFFF");
+	subtitleText.textAlign = "left";
+	subtitleText.x = 55;
+	subtitleText.y = canvasHeight*(38/100);
+	subtitleText.textBaseline = "alphabetic";
+	titleCont.addChild(subtitleText);
+
+	// Menu
+	var play = new createjs.Text("Play Game", "45px Helvetica", "#2C3E50");
+	play.textAlign = "right";
+	play.x = 750;
+	play.y = canvasHeight*(70/100);
+
+	var playHit = new createjs.Shape();
+	playHit.graphics.beginFill("#000").drawRect(-play.getMeasuredWidth(), 0, play.getMeasuredWidth(), play.getMeasuredHeight());
+	//titleCont.addChild(playHit);
+	play.hitArea = playHit;
+
+	//event listeners
+	// play.on("mouseover", function(event){
+	// 	event.target.alpha = 0.5;
+	// });
+	// play.on("mouseout", function(event){
+	// 	event.target.alpha = 1;
+	// });
+
+	play.addEventListener("mouseover", function(e){
+		e.target.alpha = 0.5;
+	});
+	play.addEventListener("mouseout", function(e){
+		e.target.alpha = 1;
+	});
+
+	play.addEventListener('mousedown', function(e) {
+		e.target.alpha = 0.7;
+	}, false);
+
+	play.addEventListener('pressup', function(e){
+		startGame();
+	}, false);
+
+	titleCont.addChild(play);
+
+	// Sound On
+	var sound = new createjs.Text("Sound On", "45px Helvetica", "#2C3E50");
+	sound.textAlign = "right";
+	sound.x = 750;
+	sound.y = canvasHeight*(80/100);
+	titleCont.addChild(sound);
+
+	var soundHit = new createjs.Shape();
+	soundHit.graphics.beginFill("#000").drawRect(-sound.getMeasuredWidth(), 0, sound.getMeasuredWidth(), sound.getMeasuredHeight());
+	//titleCont.addChild(soundHit);
+	sound.hitArea = soundHit;
+
+	sound.addEventListener("mouseover", function(e){
+		e.target.alpha = 0.5;
+	});
+	sound.addEventListener("mouseout", function(e){
+		e.target.alpha = 1;
+	});
+
+	sound.addEventListener('mousedown', function(e) {
+		e.target.alpha = 0.7;
+	}, false);
+
+	sound.addEventListener('pressup', function(e){
+		createjs.Sound.stop();
+		if(soundVol > 0){
+			soundVol=0;
+			sound.text = "Sound OFF";
+			soundOn = false;
+		}else{
+			soundVol = 0.5;
+			playBGMForestSound();
+			sound.text = "Sound ON";
+			soundOn = true;
+		}
+
+	}, false);
+
+	// fog attributes
+	var fog = [];
+	var fogArea = canvasHeight*(50/100);
+	var fogSpeed = [];
+
+	for(var i=0; i<20; i++){
+		//Transparent fog
+		//position and speed of the fogs are randomized
+		fog.push(new createjs.Shape());
+		fog[i].graphics.beginFill("#FFF").drawRect(0, Math.floor(Math.random() * fogArea), 50, Math.floor(Math.random()*20)+1);
+		fog[i].x = canvasWidth+Math.floor(Math.random() * canvasWidth);
+		fog[i].alpha = Math.random();
+		titleCont.addChild(fog[i]);
+
+		//randomized fog speed
+		fogSpeed.push(Math.floor(Math.random()*2)+1);
+	}
+
+	//Add Title Animation
+	createjs.Ticker.addEventListener("tick", titleTick);
+	createjs.Ticker.userRAF = true;
+	createjs.Ticker.setFPS(60);
+
+	function titleTick(){
+		for(var i=0; i<fog.length; i++){
+			fog[i].x -= fogSpeed[i];
+			if((fog[i].x+51)<0)
+				fog[i].x = canvasWidth+Math.floor(Math.random() * canvasWidth);
+		}
+
+		stage.update();
+	}
 }
 
 function startGame(){
-	//remove all previous child
-	stage.removeAllChildren();
+	cleanStage();
 
 	//play BGM
 	//playBGMForestSound();

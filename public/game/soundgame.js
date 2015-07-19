@@ -53,16 +53,19 @@ function playBGMForestSound(){
 
 //play jump sound
 function playJumpSound(){
+	updateSoundFX();
 	jumpSound = createjs.Sound.play("jump");
 	jumpSound.volume = soundFX;
 }
 
 function playDamageSound(){
+	updateSoundFX();
 	damageSound = createjs.Sound.play("damage");
 	damageSound.volume = soundFX;
 }
 
 function playBoostSound(){
+	updateSoundFX();
 	boostSound = createjs.Sound.play("boost", {loop: -1});
 	boostSound.volume = soundFX;
 }
@@ -72,21 +75,26 @@ function stopBoostSound(){
 }
 
 function playGetItemSound(){
+	updateSoundFX();
 	getItemSound = createjs.Sound.play("gettingitem");
 	getItemSound.volume = soundFX;
 }
 
 function playGameOverSound(){
+	updateSoundFX();
 	overSound = createjs.Sound.play("gameover");
 	overSound.volume = soundFX;
 }
 
 function audioLoadComplete(){
-	loadAssetsCompleted();
-	initMainGame();
+	// loadAssetsCompleted();
 }
 
 function getSoundsProgress(progress){
 	console.log(progress.loaded);
 	soundLoadProgress = Math.floor(progress.loaded*100)
+}
+
+function updateSoundFX(){
+	soundFX = soundVol*(0.8);
 }

@@ -25,6 +25,7 @@ function loadMainImages(){
 		{id: "headman", src: imagePath+"headman.png"},
 		{id: "dragon", src: imagePath+"dragon.png"},
 		{id: "maguro", src: imagePath+"maguro.png"},
+		{id: "pom", src: imagePath+"pom.png"},
 		{id: "orbs", src: imagePath+"orbs.png"},//kaetayo
 		{id: "redPanda", src : imagePath+"panda_red.png"}//kaetayo
 	]);
@@ -43,6 +44,7 @@ function imagesLoadComplete(){
 	imgBgRocks2 = queueImage.getResult("rocks2");
 	imgBgMountain1 = queueImage.getResult("mountain1");
 	imgBgMountain2 = queueImage.getResult("mountain2");
+	imgLogo = queueImage.getResult("pom");
 	imgOrbs = queueImage.getResult("orbs");//kaetayo
 	imgRedPanda = queueImage.getResult("redPanda");//kaetayo
 
