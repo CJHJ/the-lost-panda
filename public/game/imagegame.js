@@ -11,6 +11,7 @@ var queueImage = new createjs.LoadQueue();
 
 function loadMainImages(){
 	queueImage.addEventListener("complete", imagesLoadComplete);
+	queueImage.addEventListener("progress", getImagesProgress);
 	queueImage.loadManifest([
 		{id: "panda", src: imagePath+"panda.png"},
 		{id: "trees1", src: imagePath+"trees1.png"},
@@ -50,4 +51,8 @@ function imagesLoadComplete(){
 	loadMainAudio();
 }
 
-loadMainImages();
+function getImagesProgress(progress){
+	console.log(progress.loaded);
+	imageLoadProgress = Math.floor(progress.loaded*100);
+	stage.update();
+}
