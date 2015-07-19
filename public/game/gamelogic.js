@@ -745,7 +745,7 @@ function startGame(){
 	var dragonWidth = 90;
 	dragon.name = "dragon";
 	dragon.gotoAndPlay("fly");
-	dragon.x = canvasWidth+dragonLoc;
+	dragon.x = -200;	//kaetayo2
 	dragon.y = 128;
 	dragon.setBounds(20,20,90,78);
 	colObjects.push(dragon);
@@ -759,7 +759,7 @@ function startGame(){
 	var egypteeSpeed = 0.2
 	egyptee.name = "egyptee";
 	egyptee.gotoAndPlay("walk");
-	egyptee.x = canvasWidth+egypteeLoc;
+	egyptee.x = -200;	//kaetayo2
 	egyptee.y = platHeight-egypteeHeight;
 	egyptee.setBounds(40,20,40,100);
 	colObjects.push(egyptee);
@@ -773,7 +773,7 @@ function startGame(){
 	var appleSlimeSpeed = 2
 	appleSlime.name = "appleslime";
 	appleSlime.gotoAndPlay("roll");
-	appleSlime.x = canvasWidth+appleSlimeLoc;
+	appleSlime.x = -200;	//kaetayo2
 	appleSlime.y = platHeight-appleSlimeHeight;
 	appleSlime.setBounds(45,90,35,30);
 	colObjects.push(appleSlime);
@@ -787,7 +787,7 @@ function startGame(){
 	var headmanSpeed = 0.2
 	headman.name = "headman";
 	headman.gotoAndPlay("walk");
-	headman.x = canvasWidth+headmanLoc;
+	headman.x = -200;	//kaetayo2
 	headman.y = platHeight-headmanHeight;
 	headman.setBounds(42,60,44,78);
 	colObjects.push(headman);
@@ -800,7 +800,7 @@ function startGame(){
 	var maguroSpeed = 0.2
 	maguro.name = "maguro";
 	maguro.gotoAndPlay("walk");
-	maguro.x = canvasWidth+maguroLoc;
+	maguro.x = -2000;	//kaetayo2
 	maguro.y = platHeight-maguroHeight;
 	maguro.setBounds(5,30,246,103);
 	colObjects.push(maguro);
@@ -848,7 +848,7 @@ function startGame(){
 	mainGame.addChild(scoreBorder2);
 
 	//Score
-	var killTextTemp = "KILL\n";
+	var killTextTemp = "KILL SCORE\n";
 	var killText = new createjs.Text(killTextTemp +String(killScore), "20px Verdana", "#AED8F2");
 	killText.x = 265;
 	killText.y = 50;
@@ -944,49 +944,94 @@ function startGame(){
 				readyText.alpha -=0.05;
 			}
 
+			//kaetayo2
 			//enemy procedures
-			//dragon
-			if(dragon.x+dragonWidth < -10){
-				var dragonAppear = getRand(500,1000);
-				var dragonArea = getRand(-50,50);
-				dragon.x = canvasWidth+dragonAppear;
-				dragon.y = dragon.y+dragonArea;
-				if(dragon.currentAnimation==="dead")
-					dragon.gotoAndPlay("fly");
-			}
-
-			//egyptee
-			if(egyptee.x+egypteeWidth < -10){
-				var egypteeAppear = getRand(500,1000);
-				egyptee.x = canvasWidth+egypteeAppear;
-				if(egyptee.currentAnimation==="dead")
-					egyptee.gotoAndPlay("walk");
-			}
-
-			//apple slime
-			if(appleSlime.x+appleSlimeWidth < -10){
-				var appleSlimeAppear = getRand(500,1000);
-				appleSlime.x = canvasWidth+appleSlimeAppear;
-				if(appleSlime.currentAnimation==="dead")
+			function enemies(enemyName){
+				if (enemyName === "appleslime"){
+					appleSlime.x = canvasWidth + 100;
 					appleSlime.gotoAndPlay("roll");
-			}
+				}
+				else if(enemyName === "egyptee"){
+					egyptee.x = canvasWidth + 100;
+					egyptee.gotoAndPlay("walk");
+					//dragon combo (by using an egyptee, kill an dragon)
+					var dragonCombo = getRand(0,3);
+					if(dragonCombo>=0 && dragonCombo <=1){
+						dragon.x = canvasWidth + 65 * bgSpeed - bgSpeed*1.3;
+						dragon.gotoAndPlay("fly");
+					}
+				}
+				else if (enemyName === "maguro"){
+					maguro.x = canvasWidth + 100;
+					maguro.gotoAndPlay("walk");
+				}
 
-			console.log(headman.currentAnimation);
-
-			//headman
-			if(headman.x+headmanWidth < -10){
-				var headmanAppear = getRand(500,1000);
-				headman.x = canvasWidth+headmanAppear;
-				if(headman.currentAnimation==="dead")
+				else if (enemyName === "headman"){
+					headman.x = canvasWidth + 100;
 					headman.gotoAndPlay("walk");
+				}
+
 			}
 
-			//maguro
-			if(maguro.x+maguroWidth < -10){
-				var maguroAppear = getRand(500,1000);
-				maguro.x = canvasWidth+maguroAppear;
-				maguro.gotoAndPlay("walk");
-			}
+
+			var shutsugenRate = 5000/bgSpeed;	//koko no atai wo kaetara, shutsu gen ritsu wo kaereru.
+			var abc = getRand(0,shutsugenRate);	
+			if(abc >= 0 && abc < 5 &&((appleSlime.currentAnimation==="dead"&&appleSlime.x < -200)||appleSlime.x < -200))
+				enemies("appleslime");
+			if(abc >= 5 && abc < 7 &&((egyptee.currentAnimation === "dead"&&egyptee.x < -200)||egyptee.x < -200)&&((dragon.currentAnimation === "dead"&&dragon.x < -200)||dragon.x < -200))
+				enemies("egyptee");
+			if(abc >= 7 && abc < 8 &&((maguro.currentAnimation === "dead"&&maguro.x < -300)||maguro.x < -300))
+				enemies("maguro");
+			if(abc >= 8 && abc < 11 &&((headman.currentAnimation === "dead"&&headman.x < -200)||headman.x < -200))
+				enemies("headman");
+			
+
+
+
+			// if(dragon.x+dragonWidth < -10){
+			// 	var dragonAppear = getRand(500,1000);
+			// 	var dragonArea = getRand(-50,50);
+			// 	dragon.x = canvasWidth+dragonAppear;
+			// 	dragon.y = dragon.y+dragonArea;
+			// 	if(dragon.currentAnimation==="dead")
+			// 		dragon.gotoAndPlay("fly");
+			// }
+
+			// //egyptee
+			// if(egyptee.x+egypteeWidth < -10){
+			// 	var egypteeAppear = getRand(500,1000);
+			// 	egyptee.x = canvasWidth+egypteeAppear;
+			// 	if(egyptee.currentAnimation==="dead")
+			// 		egyptee.gotoAndPlay("walk");
+			// }
+
+			// apple slime
+			// if(appleSlime.x+appleSlimeWidth < -10){
+			// 	var appleSlimeAppear = getRand(500,1000);
+			// 	appleSlime.x = canvasWidth+appleSlimeAppear;
+			// 	if(appleSlime.currentAnimation==="dead")
+			// 		appleSlime.gotoAndPlay("roll");
+			// }
+
+			// console.log(headman.currentAnimation);
+
+			// //headman
+			// if(headman.x+headmanWidth < -10){
+			// 	var headmanAppear = getRand(500,1000);
+			// 	headman.x = canvasWidth+headmanAppear;
+			// 	if(headman.currentAnimation==="dead")
+			// 		headman.gotoAndPlay("walk");
+			// }
+
+			// //maguro
+			// if(maguro.x+maguroWidth < -10){
+			// 	var maguroAppear = getRand(500,1000);
+			// 	maguro.x = canvasWidth+maguroAppear;
+			// 	maguro.gotoAndPlay("walk");
+			// }
+
+
+			//-kaetayo2
 
 			//ORB PROCEDURES
 			//kaetayo
@@ -1149,8 +1194,8 @@ function startGame(){
 			distanceScore += bgSpeed/100;
 
 			//update GUI
-			distanceText.text = distTextTemp+String(parseInt(distanceScore)+" meters");
-			killText.text = killTextTemp+String(parseInt(killScore));
+			distanceText.text = distTextTemp+String(parseInt(distanceScore)+" METERS");
+			killText.text = killTextTemp+String(parseInt(killScore))+" POINTS";
 
 			//Speed up
 			if(distanceScore > speedUp){
