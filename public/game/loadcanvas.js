@@ -9,6 +9,7 @@ var loadScreen = null;
 
 //images progress
 var imageLoadProgress = 0;
+var soundLoadProgress = 0;
 
 var loadingProgress = null, loadingPText = null;
 
@@ -74,17 +75,17 @@ function loadingScreen(){
 	createjs.Ticker.addEventListener("tick", loadingTick);
 	createjs.Ticker.userRAF = true;
 	createjs.Ticker.setFPS(60);
-
-	
 }
 
 function loadingTick(){
 	console.log("hairuu");
 
-	loadingProgress = "Loading Images "+imageLoadProgress;
-	loadingPText.Text = loadingProgress;
-
-	console.log(imageLoadProgress);
+	if(imageLoadProgress < 100)
+		loadingProgress = "Loading Images - "+imageLoadProgress+"%";
+	else
+		loadingProgress = "Loading Sounds - "+soundLoadProgress+"%";
+	
+	loadingPText.text = loadingProgress;
 
 	stage.update();
 }

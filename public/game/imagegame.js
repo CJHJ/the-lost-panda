@@ -54,5 +54,4 @@ function imagesLoadComplete(){
 function getImagesProgress(progress){
 	console.log(progress.loaded);
 	imageLoadProgress = Math.floor(progress.loaded*100);
-	stage.update();
 }

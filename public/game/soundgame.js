@@ -13,6 +13,7 @@ var queueSound = new createjs.LoadQueue();
 function loadMainAudio(){
 	// createjs.Sound.alternateExtensions = ["mp3", ""];
 	queueSound.installPlugin(createjs.Sound);
+	queueSound.addEventListener("progress", getSoundsProgress);
 	queueSound.addEventListener("complete", audioLoadComplete);
 	queueSound.loadManifest([
 		{id:"BGM", src:audioPath+"HouseBGMLoop.ogg"},
@@ -83,4 +84,9 @@ function playGameOverSound(){
 function audioLoadComplete(){
 	loadAssetsCompleted();
 	initMainGame();
+}
+
+function getSoundsProgress(progress){
+	console.log(progress.loaded);
+	soundLoadProgress = Math.floor(progress.loaded*100)
 }
