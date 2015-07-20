@@ -87,7 +87,7 @@ mainMod.controller('ModalHighScore', function ($scope, $modal, $log){
         console.log($scope.highScore);
         var modalInstance = $modal.open({
             animation: $scope.animationsEnabled,
-            templateUrl: 'newscore.html',
+            templateUrl: './contents/newscore.html',
             controller: 'ModalHSCtrl',
             resolve: {
                 playerName: function(){

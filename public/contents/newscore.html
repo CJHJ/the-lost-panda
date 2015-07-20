@@ -1,0 +1,16 @@
+<div class="modal-header">
+	<h3 class="modal-title">New Score!</h3>
+</div>
+<div class="modal-body high-score">
+	<div class="well">
+		<h5>Your score : {{highScore}}</h5>
+		<div class="form-group">
+			<label for="usr">Enter your name below</label>
+			<input type="text" class="form-control" id="player-name" ng-model="playerName"></input>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="ok()">Add!</button>
+	<button class="btn btn-warning" ng-click="cancel()">Nah, not this time</button>
+</div>
