@@ -8,7 +8,7 @@ var mainMod = angular.module('tlp-web');
 (function(){
     mainMod.controller('ModalMenuCtrl', function($scope, $modal, $http, $log){
         $scope.animationsEnabled = true;
-        $scope.url = "http://localhost:8080/ranking";
+        $scope.url = "http://thelostpanda-cjhjtest.rhcloud.com/ranking";
 
         $scope.open = function(type) {
             $scope.type = type;
@@ -115,7 +115,7 @@ mainMod.controller('ModalHSCtrl', function ($scope, $modalInstance, $http, playe
     $scope.ok = function () {
         $scope.postData = {name: $scope.playerName, score: $scope.highScore};
         console.log($scope.postData);
-        $http.post('http://localhost:8080/post', $scope.postData).
+        $http.post('http://thelostpanda-cjhjtest.rhcloud.com/post', $scope.postData).
             success(function(data, status, headers, config) {
                 console.log("POST succeded!")
             }).
