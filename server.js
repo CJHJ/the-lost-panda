@@ -25,6 +25,17 @@ var SampleApp = function() {
         self.ipaddress = process.env.OPENSHIFT_NODEJS_IP;
         self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
+        // default to a 'localhost' configuration:
+        self.connection_string = '127.0.0.1:27017/thelostpanda';
+        // if OPENSHIFT env variables are present, use the available connection info:
+        if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+            self.connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+            process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+            process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+            process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+            process.env.OPENSHIFT_APP_NAME;
+        }
+
         if (typeof self.ipaddress === "undefined") {
             //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
             //  allows us to run/test the app locally.
@@ -95,17 +106,21 @@ var SampleApp = function() {
     self.createRoutes = function() {
         self.routes = { };
 
-        // self.routes['/asciimo'] = function(req, res) {
-        //     var link = "http://i.imgur.com/kmbjB.png";
-        //     res.send("<html><body><img src='" + link + "'></body></html>");
-        // };
+        //load the Client interface
+        var MongoClient = require('mongodb').MongoClient;
 
-        
-
-        // self.routes['/'] = function(req, res) {
-        //     res.setHeader('Content-Type', 'text/html');
-        //     res.send(self.cache_get('index.html') );
-        // };
+        self.routes['/mongo'] = function(req, res) {
+            // the client db connection scope is wrapped in a callback:
+            MongoClient.connect('mongodb://'+self.connection_string, function(err, db) {
+                if(err) throw err;
+                var collection = db.collection('ranking').find().limit(10).toArray(function(err, docs) {
+                    res.setHeader('Content-Type', 'text/html');
+                    res.send(JSON.stringify(docs));
+                    console.dir(docs);
+                    db.close();
+                });
+            });
+        };
     };
 
 
@@ -126,10 +141,10 @@ var SampleApp = function() {
         self.app.use(express.compress());
         self.app.use(express.static(__dirname + '/public'));
 
-        //  Add handlers for the app (from the routes).
-        // for (var r in self.routes) {
-        //     self.app.get(r, self.routes[r]);
-        // }
+         // Add handlers for the app (from the routes).
+        for (var r in self.routes) {
+            self.app.get(r, self.routes[r]);
+        }
     };
 
 
