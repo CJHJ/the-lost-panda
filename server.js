@@ -109,14 +109,30 @@ var SampleApp = function() {
         //load the Client interface
         var MongoClient = require('mongodb').MongoClient;
 
-        self.routes['/mongo'] = function(req, res) {
+        self.routes['/ranking'] = function(req, res) {
             // the client db connection scope is wrapped in a callback:
             MongoClient.connect('mongodb://'+self.connection_string, function(err, db) {
                 if(err) throw err;
-                var collection = db.collection('ranking').find().limit(10).toArray(function(err, docs) {
+                var collection = db.collection('ranking').find().sort({score:-1}).toArray(function(err, docs) {
                     res.setHeader('Content-Type', 'text/html');
-                    res.send(JSON.stringify(docs));
+                    res.send(docs);
                     console.dir(docs);
+                    db.close();
+                });
+            });
+        };
+
+        //post ranking
+        self.routes['/post'] = function(req, res, next) {
+            var newScore = req.body;
+
+            console.log(newScore);
+
+            MongoClient.connect('mongodb://'+self.connection_string, function(err, db) {
+                if(err) throw err;
+                db.collection('ranking').insert(newScore, function(err, records){
+                    if(err) throw err;
+                    //console.log("New score! - "+records[0]._id+", "+records[0].name);
                     db.close();
                 });
             });
@@ -132,6 +148,11 @@ var SampleApp = function() {
         self.createRoutes();
         self.app = express();
 
+        //you need to parse before posting scores
+        self.app.configure(function(){
+            self.app.use(express.bodyParser());
+        });
+
         // self.app.configure(function(){
         //     ['assets', 'game', 'scripts', 'assets/images', 'assets/sounds'].forEach(function (dir){
         //         self.app.use('/'+dir, express.static(__dirname+'/public/'+dir));
@@ -143,7 +164,12 @@ var SampleApp = function() {
 
          // Add handlers for the app (from the routes).
         for (var r in self.routes) {
-            self.app.get(r, self.routes[r]);
+            if(r === '/post'){
+                console.log("hello");
+                self.app.post(r, self.routes[r]);
+            }
+            else
+                self.app.get(r, self.routes[r]);
         }
     };
 
@@ -182,4 +208,3 @@ var SampleApp = function() {
 var zapp = new SampleApp();
 zapp.initialize();
 zapp.start();
-

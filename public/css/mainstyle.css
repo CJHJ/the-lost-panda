@@ -222,3 +222,13 @@ div#container{
     text-align:justify;
     color:#EEE;
 }
+
+.high-score{
+    height:200px;
+}
+
+/*Highlight first record*/
+tr:nth-child(2){
+    background-color: #4BB5C1;
+    color: #333333;
+}

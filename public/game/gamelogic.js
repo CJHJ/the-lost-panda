@@ -15,6 +15,8 @@ function initMainGame(){
 
 //enter titleGame
 function titleGame(){
+	cleanStage();
+
 	playBGMForestSound();
 
 	stage.enableMouseOver(60);
@@ -880,6 +882,12 @@ function startGame(){
 	var readySec = 100;
 	var goSec = 60;
 	var remSec = 60;
+	var gameOverSec = 3*60; //5 seconds before back to title screen
+
+	var fadeOut = new createjs.Shape();
+	fadeOut.graphics.beginFill("#FFFFFF").drawRect(0,0,canvasWidth,canvasHeight);
+	fadeOut.alpha = 0; // fade out effect
+	mainGame.addChild(fadeOut);
 
 	//sound gameover
 	var playOnceGO = 1;
@@ -973,7 +981,6 @@ function startGame(){
 
 			}
 
-
 			var shutsugenRate = 5000/bgSpeed;	//koko no atai wo kaetara, shutsu gen ritsu wo kaereru.
 			var abc = getRand(0,shutsugenRate);	
 			if(abc >= 0 && abc < 5 &&((appleSlime.currentAnimation==="dead"&&appleSlime.x < -200)||appleSlime.x < -200))
@@ -985,54 +992,6 @@ function startGame(){
 			if(abc >= 8 && abc < 11 &&((headman.currentAnimation === "dead"&&headman.x < -200)||headman.x < -200))
 				enemies("headman");
 			
-
-
-
-			// if(dragon.x+dragonWidth < -10){
-			// 	var dragonAppear = getRand(500,1000);
-			// 	var dragonArea = getRand(-50,50);
-			// 	dragon.x = canvasWidth+dragonAppear;
-			// 	dragon.y = dragon.y+dragonArea;
-			// 	if(dragon.currentAnimation==="dead")
-			// 		dragon.gotoAndPlay("fly");
-			// }
-
-			// //egyptee
-			// if(egyptee.x+egypteeWidth < -10){
-			// 	var egypteeAppear = getRand(500,1000);
-			// 	egyptee.x = canvasWidth+egypteeAppear;
-			// 	if(egyptee.currentAnimation==="dead")
-			// 		egyptee.gotoAndPlay("walk");
-			// }
-
-			// apple slime
-			// if(appleSlime.x+appleSlimeWidth < -10){
-			// 	var appleSlimeAppear = getRand(500,1000);
-			// 	appleSlime.x = canvasWidth+appleSlimeAppear;
-			// 	if(appleSlime.currentAnimation==="dead")
-			// 		appleSlime.gotoAndPlay("roll");
-			// }
-
-			// console.log(headman.currentAnimation);
-
-			// //headman
-			// if(headman.x+headmanWidth < -10){
-			// 	var headmanAppear = getRand(500,1000);
-			// 	headman.x = canvasWidth+headmanAppear;
-			// 	if(headman.currentAnimation==="dead")
-			// 		headman.gotoAndPlay("walk");
-			// }
-
-			// //maguro
-			// if(maguro.x+maguroWidth < -10){
-			// 	var maguroAppear = getRand(500,1000);
-			// 	maguro.x = canvasWidth+maguroAppear;
-			// 	maguro.gotoAndPlay("walk");
-			// }
-
-
-			//-kaetayo2
-
 			//ORB PROCEDURES
 			//kaetayo
 			//orb wo random ni hassei saseru.
@@ -1208,10 +1167,7 @@ function startGame(){
 				}
 			}else {
 				distTextTemp = "SCORE\n"
-			}
-
-
-			
+			}			
 		}else if(gameState === "gameover"){
 			if(remSec > 0){
 				remSec--;
@@ -1233,7 +1189,19 @@ function startGame(){
 				character.gotoAndPlay("dead");
 				playOnceGO = 0;
 			}
-			distanceText.text = "TRY AGAIN!";
+			distanceText.text = "TRY AGAIN!\n"+String(parseInt(distanceScore)+" METERS");
+
+
+
+			if(gameOverSec>0){
+				gameOverSec--;
+				fadeOut.alpha +=0.007;
+			}else{
+				//setAndInvokeHighScore(parseInt(distanceScore)+parseInt(killScore));
+				var score = parseInt(distanceScore)+parseInt(killScore);
+				angular.element(document.querySelector('#canvas-cont')).scope().openModal(score);
+				titleGame();
+			}
 		}
 
 		dragon.x -= bgSpeed;
@@ -1688,3 +1656,6 @@ function getBounds(obj) {
 function getRand(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+
+

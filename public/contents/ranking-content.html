@@ -2,7 +2,21 @@
 	<h3 class="modal-title">{{contentType}}</h3>
 </div>
 <div class="modal-body">
-	{{mydata}}
+	<div class="well">
+		<div ng-hide="isLoaded">{{loadingtext}}</div>
+		<table class="table" ng-show="isLoaded">
+			<tr>
+				<td>Rank</td>
+				<td>Name</td>
+				<td>Score</td>
+			</tr>
+			<tr ng-repeat="player in rankingTable">
+				<td>{{$index+1}}</td>
+				<td>{{player.name}}</td>
+				<td>{{player.score}}</td>
+			</tr>
+		</table>
+	</div>
 </div>
 <div class="modal-footer">
 	<button class="btn btn-primary" ng-click="ok()">Gotcha!</button>
