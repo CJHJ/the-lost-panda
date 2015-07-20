@@ -1,0 +1,224 @@
+body {
+    text-align: center;
+    background-color: #EDF7F2;
+    padding:0;
+    margin:0;
+    height:100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
+}
+
+a{
+    text-decoration:none;
+}
+
+div#container{
+    position:relative;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#banner{
+    position:relative;
+    width:100%;
+    padding: 5px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3575c3+0,3575c3+39,d2ebff+99 */
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3575c3+0,63bbff+100 */
+    background: #3575c3; /* Old browsers */
+    background: -moz-linear-gradient(top,  #3575c3 0%, #63bbff 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3575c3), color-stop(100%,#63bbff)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #3575c3 0%,#63bbff 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #3575c3 0%,#63bbff 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #3575c3 0%,#63bbff 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #3575c3 0%,#63bbff 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3575c3', endColorstr='#63bbff',GradientType=0 ); /* IE6-9 */
+
+}
+
+#banner-text{
+    position:relative;
+    width:800px;
+    text-align:left;
+    margin: 0 auto;
+    font-size:40px;
+}
+
+#banner-sub{
+    position:relative;
+    width:800px;
+    text-align:left;
+    margin:0 auto;
+    font-size:20px;
+}
+
+#menu {
+    position:relative;
+    width:100%;
+    height:45px;
+    padding:0;
+    margin:0 auto;
+    list-style-type: none;
+    display: table;
+}
+
+#menu li {
+    width:25%;
+    height:auto;
+    float:left;
+    padding:0;
+    margin:0;
+    text-align:center;
+}
+
+#menu li a {
+    width:100%;
+    height:auto;
+    color:#FFF;
+    font-size:20px;
+    /*text-shadow:0 -1px 0px #333,0 1px 0px #555;*/
+    padding:10px 0;
+    text-decoration:none;
+    display:block;
+    background:#4BB5C1;
+    -o-transition:color .5s ease-out, background .5s ease-in;
+    -ms-transition:color .5s ease-out, background .5s ease-in;
+    -moz-transition:color .5s ease-out, background .5s ease-in;
+    -webkit-transition:color .5s ease-out, background .5s ease-in;
+    /* ...and now override with proper CSS property */
+    transition:color .5s ease-out, background .5s ease-in;
+}
+
+#menu li:first-child a{
+    border-left:0px;
+}
+
+#menu li:last-child a{
+    /*border-radius:0 5px 5px 0;*/
+}
+
+#menu li a:hover {
+    color:white; background:#7FC6BC; 
+}
+
+#title{
+    position:relative;
+    width:800px;
+    text-align: left;
+    font-size:30px;
+    margin: 0 auto;
+    padding-top: 10px;
+    
+}
+
+#title-sub{
+    position:relative;
+    width:800px;
+    text-align: left;
+    font-size:16px;
+    padding-bottom:5px;
+    margin: 0 auto;
+}
+
+#horizontal-line{
+    position:relative;
+    width:800px;
+    height:5px;
+    margin: 0 auto;
+    margin-bottom:5px;
+    background-color:#4BB5C1;
+}
+
+#canvas-cont{
+    position: relative;
+    width:800px;
+    height:600px;
+    margin: auto;
+    background-color: #FFFFFF;
+}
+
+#canvas-cont::before {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: inset 0 0 8px rgba(0,0,0,.6);
+    -moz-box-shadow: inset 0 0 8px rgba(0,0,0,.6);
+    -webkit-box-shadow: inset 0 0 8px rgba(0,0,0,.6);
+} 
+
+#footer{
+    position:relative;
+    margin-top:10px;
+    width:100%;
+    background-color:#7FC6BC;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+#footer-content{
+    position:relative;
+    width:800px;
+    color:#FFF;
+    margin: 0 auto;
+    text-align:left;
+}
+
+#footer-text{
+    position:relative;
+    color:#000;
+}
+
+#footer-separator{
+    background-color: #EDF7F2;
+    height:2px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+#footer-menu ul{
+    position:relative;
+    width:100%;
+    height:15px;
+    padding:0;
+    margin:0 auto;
+    list-style-type: none;
+    display: table;
+}
+
+#footer-menu ul li {
+    float:left;
+    padding:0;
+    margin:0;
+    margin-right:10px;
+    text-align:left;
+}
+
+.modal-content{
+    background:#EDF7F2;
+    max-height:700px;
+    height:100%;
+}
+
+/*.modal-title{
+    color:#EDF7F2;
+}*/
+
+.modal-body{
+    height:500px;
+}
+
+.well{
+    width: 100%;
+    height: 100%;
+    overflow:auto;
+    background-color:#8F9E8B;
+    text-align:justify;
+    color:#EEE;
+}

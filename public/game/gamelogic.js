@@ -160,7 +160,7 @@ function startGame(){
 	cleanStage();
 
 	//play BGM
-	//playBGMForestSound();
+	playBGMSound();
 
 	//platform height - 20% above the ground
 	var platHeight = canvasHeight-canvasHeight*(20/100);
@@ -1069,7 +1069,7 @@ function startGame(){
 					orbFlag=true;
 					getBlackOrb=false;
 
-					createjs.Sound.stop();
+					stopBoostSound();
 
 					eraseAllEnemies();
 
