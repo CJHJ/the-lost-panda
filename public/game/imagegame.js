@@ -9,29 +9,29 @@ var imgBgCactus = new Image();
 //loading image queue
 var queueImage = new createjs.LoadQueue();
 
-function loadMainImages(){
+function loadMainImages() {
 	queueImage.addEventListener("complete", imagesLoadComplete);
 	queueImage.addEventListener("progress", getImagesProgress);
 	queueImage.loadManifest([
-		{id: "panda", src: imagePath+"panda.png"},
-		{id: "trees1", src: imagePath+"trees1.png"},
-		{id: "trees2", src: imagePath+"trees2.png"},
-		{id: "rocks1", src: imagePath+"rocks1.png"},
-		{id: "rocks2", src: imagePath+"rocks2.png"},
-		{id: "mountain1", src: imagePath+"mountain1.png"},
-		{id: "mountain2", src: imagePath+"mountain2.png"},
-		{id: "egyptee", src: imagePath+"egyptee.png"},
-		{id: "appleslime", src: imagePath+"appleslime.png"},
-		{id: "headman", src: imagePath+"headman.png"},
-		{id: "dragon", src: imagePath+"dragon.png"},
-		{id: "maguro", src: imagePath+"maguro.png"},
-		{id: "pom", src: imagePath+"pom.png"},
-		{id: "orbs", src: imagePath+"orbs.png"},//kaetayo
-		{id: "redPanda", src : imagePath+"panda_red.png"}//kaetayo
+		{ id: "panda", src: imagePath + "panda.png" },
+		{ id: "trees1", src: imagePath + "trees1.png" },
+		{ id: "trees2", src: imagePath + "trees2.png" },
+		{ id: "rocks1", src: imagePath + "rocks1.png" },
+		{ id: "rocks2", src: imagePath + "rocks2.png" },
+		{ id: "mountain1", src: imagePath + "mountain1.png" },
+		{ id: "mountain2", src: imagePath + "mountain2.png" },
+		{ id: "egyptee", src: imagePath + "egyptee.png" },
+		{ id: "appleslime", src: imagePath + "appleslime.png" },
+		{ id: "headman", src: imagePath + "headman.png" },
+		{ id: "dragon", src: imagePath + "dragon.png" },
+		{ id: "maguro", src: imagePath + "maguro.png" },
+		{ id: "pom", src: imagePath + "pom.png" },
+		{ id: "orbs", src: imagePath + "orbs.png" },//kaetayo
+		{ id: "redPanda", src: imagePath + "panda_red.png" }//kaetayo
 	]);
 }
 
-function imagesLoadComplete(){
+function imagesLoadComplete() {
 	imgPanda = queueImage.getResult("panda");
 	imgDragon = queueImage.getResult("dragon");
 	imgEgyptee = queueImage.getResult("egyptee");
@@ -53,7 +53,7 @@ function imagesLoadComplete(){
 	loadMainAudio();
 }
 
-function getImagesProgress(progress){
+function getImagesProgress(progress) {
 	console.log(progress.loaded);
-	imageLoadProgress = Math.floor(progress.loaded*100);
+	imageLoadProgress = Math.floor(progress.loaded * 100);
 }
