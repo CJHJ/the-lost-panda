@@ -6,9 +6,11 @@ angular.module('tlp-web', ['ui.bootstrap'], function ($controllerProvider) {
 var mainMod = angular.module('tlp-web');
 
 (function () {
-    mainMod.controller('ModalMenuCtrl', function ($scope, $modal, $http, $log) {
+    mainMod.controller('ModalMenuCtrl', function ($scope, $modal, $http, $log, $location) {
+        $scope.uri = $location.absUrl();
+
         $scope.animationsEnabled = true;
-        $scope.url = "http://127.0.0.1:8080/ranking";
+        $scope.url = $scope.uri + 'ranking';
 
         $scope.open = function (type) {
             $scope.type = type;
@@ -108,14 +110,16 @@ mainMod.controller('ModalHighScore', function ($scope, $modal, $log) {
 });
 
 //modal instance - highscore
-mainMod.controller('ModalHSCtrl', function ($scope, $modalInstance, $http, playerName, highScore) {
+mainMod.controller('ModalHSCtrl', function ($scope, $modalInstance, $http, $location, playerName, highScore) {
     $scope.highScore = highScore;
     $scope.playerName = playerName;
 
     $scope.ok = function () {
         $scope.postData = { name: $scope.playerName, score: $scope.highScore };
+
+        $scope.uri = $location.absUrl();
         console.log($scope.postData);
-        $http.post('http://127.0.0.1:8080/post', $scope.postData).
+        $http.post($scope.uri + 'post', $scope.postData).
             success(function (data, status, headers, config) {
                 console.log("POST succeded!")
             }).

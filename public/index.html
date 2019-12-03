@@ -1,62 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="tlp-web">
+
 <head>
-<meta charset="UTF-8">
-<title>The Lost Panda</title>
-<script type="text/javascript" src="./scripts/easeljs-0.8.1.min.js"></script>
-<script type="text/javascript" src="./scripts/soundjs-NEXT.min.js"></script>
-<script type="text/javascript" src="./scripts/preloadjs-0.6.1.min.js"></script>
-<script type="text/javascript" src="./scripts/angular.min.js"></script>
-<script type="text/javascript" src="./scripts/ui-bootstrap-tpls-0.13.0.min.js"></script>
-<script type="text/javascript" src="./scripts/main-ui.js"></script>
-<script type="text/javascript" src="./game/loadcanvas.js"></script>
-<script type="text/javascript" src="./game/imagegame.js"></script>
-<script type="text/javascript" src="./game/soundgame.js"></script>
-<script type="text/javascript" src="./game/gamelogic.js"></script>
-<link rel="shortcut icon" href="./favicon.ico" />
-<link href="./css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="./css/mainstyle.css">
+	<meta charset="UTF-8">
+	<title>The Lost Panda</title>
+	<script type="text/javascript" src="./scripts/easeljs-0.8.1.min.js"></script>
+	<script type="text/javascript" src="./scripts/soundjs-NEXT.min.js"></script>
+	<script type="text/javascript" src="./scripts/preloadjs-0.6.1.min.js"></script>
+	<script type="text/javascript" src="./scripts/angular.min.js"></script>
+	<script type="text/javascript" src="./scripts/ui-bootstrap-tpls-0.13.0.min.js"></script>
+	<script type="text/javascript" src="./scripts/main-ui.js"></script>
+	<script type="text/javascript" src="./game/loadcanvas.js"></script>
+	<script type="text/javascript" src="./game/imagegame.js"></script>
+	<script type="text/javascript" src="./game/soundgame.js"></script>
+	<script type="text/javascript" src="./game/gamelogic.js"></script>
+	<link rel="shortcut icon" href="./favicon.ico" />
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="./css/mainstyle.css">
 </head>
+
 <body>
-<div id="container">
-	<div id="banner">
-		<div id="banner-text">The Lost Panda</div>
-		<div id="banner-sub">Not another endless runner</div>
-	</div>
-	<div ng-controller="ModalMenuCtrl">
-	    <ul id="menu">
-	        <li><a href="http://www.yuge.ac.jp/">Home</a></li>
-	        <li><a ng-click="open(&quot;Ranking&quot;)" href="#">Ranking</a></li>
-			<li><a ng-click="open(&quot;Help&quot;)" href="#">Help</a></li>
-			<li><a ng-click="open(&quot;About Us&quot;)" href="#">About Us</a></li>
-		</ul>
-	</div>
-	<div id="title">Try It!</div>
-	<div id="title-sub">If you are new here, check out the "help" section first!</div>
-	<div id="horizontal-line"></div>
-	<div id="canvas-cont" ng-controller="ModalHighScore">
-		<canvas id="theCanvas" width="800" height="600">Update your browser to play the game.</canvas>
-	</div>
-	<div id="footer">
-		<div id="footer-content">
-			<div id="footer-text">Developed as a one-shot game. Powered by <a href="http://www.createjs.com/">CreateJS.</a>
-				<br>Graphics: Shunsuke Ochi, Logo: Calvin Janitra Halim<br>
-				Programming: Calvin Janitra Halim, Shunsuke Ochi<br>
-				Music: Shunsuke Ochi, Calvin Janitra Halim<br>
-				Website: Hayate Nakayama, Calvin Janitra Halim<br><br>Copyright © 2015 The Pirates of Massachusetts</div>
-			<div id="footer-menu">
-				<div id="footer-separator"></div>
+	<div id="container">
+		<div id="banner">
+			<div id="banner-text">The Lost Panda</div>
+			<div id="banner-sub">Not another endless runner</div>
+		</div>
+		<div ng-controller="ModalMenuCtrl">
+			<ul id="menu">
+				<li><a href="#">Home</a></li>
+				<li><a ng-click="open(&quot;Ranking&quot;)" href="#">Ranking</a></li>
+				<li><a ng-click="open(&quot;Help&quot;)" href="#">Help</a></li>
+				<li><a ng-click="open(&quot;About Us&quot;)" href="#">About Us</a></li>
+			</ul>
+		</div>
+		<div id="title">Try It!</div>
+		<div id="title-sub">If you are new here, check out the "help" section first!</div>
+		<div id="horizontal-line"></div>
+		<div id="canvas-cont" ng-controller="ModalHighScore">
+			<canvas id="theCanvas" width="800" height="600">Update your browser to play the game.</canvas>
+		</div>
+		<div id="footer">
+			<div id="footer-content">
+				<div id="footer-text">Developed as a one-shot game. Powered by <a
+						href="http://www.createjs.com/">CreateJS.</a>
+					<br>Graphics: Shunsuke Ochi, Logo: Calvin Janitra Halim<br>
+					Programming: Calvin Janitra Halim, Shunsuke Ochi<br>
+					Music: Shunsuke Ochi, Calvin Janitra Halim<br>
+					Website: Hayate Nakayama, Calvin Janitra Halim<br><br>Copyright © 2015 The Pirates of Massachusetts
+				</div>
 				<div id="footer-menu">
-					<ul>
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Ranking</a></li>
-						<li><a href="#">Help</a></li>
-						<li><a href="#">About</a></li>					
-					</ul>
+					<div id="footer-separator"></div>
+					<div id="footer-menu">
+						<ul>
+							<li><a href="#">Home</a></li>
+							<li><a ng-click="open(&quot;Ranking&quot;)" href="#">Ranking</a></li>
+							<li><a ng-click="open(&quot;Help&quot;)" href="#">Help</a></li>
+							<li><a ng-click="open(&quot;About Us&quot;)" href="#">About</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </body>
+
 </html>
