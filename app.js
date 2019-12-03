@@ -112,7 +112,7 @@ var LostPandaApp = function () {
 
         self.routes['/ranking'] = function (req, res) {
             // The client db connection scope is wrapped in a callback:
-            MongoClient.connect(self.connection_string, function (err, client) {
+            MongoClient.connect(self.connection_string, { useUnifiedTopology: true }, function (err, client) {
                 if (err) throw err;
                 var db = client.db(self.db_dir);
 
@@ -128,11 +128,11 @@ var LostPandaApp = function () {
         self.routes['/post'] = function (req, res, next) {
             var newScore = req.body;
 
-            MongoClient.connect(self.connection_string, function (err, client) {
+            MongoClient.connect(self.connection_string, { useUnifiedTopology: true }, function (err, client) {
                 if (err) throw err;
                 var db = client.db(self.db_dir);
 
-                db.collection('ranking').insert(newScore, function (err, records) {
+                db.collection('ranking').insertOne(newScore, function (err, records) {
                     if (err) throw err;
                     client.close();
                 });
@@ -149,12 +149,13 @@ var LostPandaApp = function () {
         self.createRoutes();
         self.app = express();
 
-        // You need to parse before posting scores
-        self.app.configure(function () {
-            self.app.use(express.bodyParser());
-        });
+        var bodyParser = require('body-parser');
+        var compression = require('compression');
 
-        self.app.use(express.compress());
+        // You need to parse before posting scores
+        self.app.use(bodyParser.json())
+        self.app.use(bodyParser.urlencoded({ extended: true }))
+        self.app.use(compression());
         self.app.use(express.static(__dirname + '/public'));
 
         // Add handlers for the app (from the routes).
