@@ -30,7 +30,11 @@ var LostPandaApp = function () {
         const db_port = nconf.get('mongoPort');
         self.db_dir = nconf.get('mongoDatabase');
 
-        self.connection_string = db_user + ':' + db_pass + '@' + db_host + ':' + db_port;
+        let db_protocol = 'mongodb://';
+        if (db_port === '') {
+            db_protocol = 'mongodb+srv://';
+        }
+        self.connection_string = db_protocol + db_user + ':' + db_pass + '@' + db_host + ':' + db_port;
         console.log(self.connection_string);
 
         if (typeof self.ipaddress === "undefined") {
@@ -108,7 +112,7 @@ var LostPandaApp = function () {
 
         self.routes['/ranking'] = function (req, res) {
             // The client db connection scope is wrapped in a callback:
-            MongoClient.connect('mongodb+srv://' + self.connection_string, function (err, client) {
+            MongoClient.connect(self.connection_string, function (err, client) {
                 if (err) throw err;
                 var db = client.db(self.db_dir);
 
@@ -124,7 +128,7 @@ var LostPandaApp = function () {
         self.routes['/post'] = function (req, res, next) {
             var newScore = req.body;
 
-            MongoClient.connect('mongodb+srv://' + self.connection_string, function (err, client) {
+            MongoClient.connect(self.connection_string, function (err, client) {
                 if (err) throw err;
                 var db = client.db(self.db_dir);
 
